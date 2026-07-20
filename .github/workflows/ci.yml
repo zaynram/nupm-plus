@@ -17,7 +17,7 @@ env:
 jobs:
   tests:
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         platform: [windows-latest, macos-latest, ubuntu-24.04]
 
