@@ -206,7 +206,7 @@ export def generate-local-registry [] {
         do {
             let pkg = "spam_git"
             cd ([tests packages $pkg] | path join)
-            nupm+ publish $tmp_reg_file --git --save --info {url: "https://github.com/nushell/nupm.git" revision: "main"} --path $"tests/packages/($pkg)"
+            nupm+ publish $tmp_reg_file --git --save --info {url: "https://github.com/zaynram/nupm-plus.git" revision: "main"} --path $"tests/packages/($pkg)"
         }
 
         let actual = open $tmp_reg_file | to nuon
