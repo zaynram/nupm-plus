@@ -158,7 +158,13 @@ export def search-registry [] {
 export def nupm-status-module [] {
     with-test-env {
         let files = nupm+ status tests/packages/spam_module | get files
-        $files.0 | check-package-path spam_module spam_module mod.nu
+        match $nu.os-info.name {
+          windows => {
+            $files | describe --detailed | print
+            $files | flatten | first
+        }
+            _ => $files.0
+        } | check-package-path spam_module spam_module mod.nu
         $files.1.0 | check-package-path spam_module script.nu
     }
 }
