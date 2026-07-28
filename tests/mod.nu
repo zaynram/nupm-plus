@@ -71,7 +71,7 @@ export def install-custom-git [] {
     with-test-env {
         nupm+ install --git https://github.com/zaynram/nupm-plus.git
 
-        assert installed [modules nupm]
+        assert installed [modules nupm+]
     }
 }
 
