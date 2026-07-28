@@ -1,4 +1,6 @@
-# Directories and related utilities used in nupm+ # Default installation path for nupm+ packages
+# Directories and related utilities used in nupm+
+#
+# Default installation path for nupm+ packages
 export const DEFAULT_NUPM_HOME = ($nu.default-config-dir | path join nupm)
 
 # Default path for installation cache
