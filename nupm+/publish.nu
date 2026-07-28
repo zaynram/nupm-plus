@@ -20,13 +20,13 @@ use utils/version.nu sort-by-version
 # NOTE: `\` inside the `path` field are  replaced with `/` to avoid
 # conflicts between Windows and non-Windows platforms.
 @example "Publish with additional package info" {
-  nupm publish my-registry.nuon --git --info {url: "https://github.com/user/repo", revision: "main"}
+  nupm+ publish my-registry.nuon --git --info {url: "https://github.com/user/repo", revision: "main"}
 }
 @example "Publish git package with custom path" {
-  nupm publish my-registry.nuon --git --path packages/my-package
+  nupm+ publish my-registry.nuon --git --path packages/my-package
 }
 @example "Publish and save to local registry" {
-  nupm publish my-registry.nuon --local --save
+  nupm+ publish my-registry.nuon --local --save
 }
 export def main [
     registry: string  # Registry file to publish to (local file or name pointing

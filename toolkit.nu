@@ -1,6 +1,6 @@
 export def --env set-nupm-env [--clear] {
     if ($env.PWD | path basename) != 'nupm' {
-        print 'Run from nupm repo root'
+        print 'Run from nupm+ repo root'
         return
     }
 

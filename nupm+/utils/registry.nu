@@ -1,4 +1,4 @@
-# Utilities related to nupm registries
+# Utilities related to nupm+ registries
 
 use dirs.nu [ cache-dir REGISTRY_FILENAME ]
 use log.nu throw-error

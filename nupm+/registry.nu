@@ -1,17 +1,16 @@
-# Registry management for nupm
-
+# Registry management fornupm+
 use utils/dirs.nu [nupm-home-prompt REGISTRY_FILENAME]
 use utils/log.nu [throw-error append-help UNIMPLEMENTED]
 use utils/registry.nu registry-cache
 
-# Manage nupm registires
-@example "List all configured registries" { nupm registry }
+# Manage nupm+ registires
+@example "List all configured registries" { nupm+ registry }
 export def main []: nothing -> table {
     list
 }
 
 # List all configured registries
-@example "List all registries with details" { nupm registry list }
+@example "List all registries with details" { nupm+ registry list }
 export def list []: nothing -> table {
     $env.NUPM_REGISTRIES | transpose name url | sort-by name
 }
@@ -30,7 +29,7 @@ export def success-msg [success_msg: string, write_path: path, saved_to_disk: bo
 def registry-names [] { list | get name }
 # Show detailed information about a specific registry
 # returning a list of package names, type, and version
-@example "Show registry information" { nupm registry describe nupm }
+@example "Show registry information" { nupm+ registry describe nupm+ }
 export def describe [
     registry: string@registry-names
 ]: nothing -> table {
@@ -92,14 +91,14 @@ export def describe [
 }
 
 # Add a new registry
-@example "Add a new registry" { nupm registry add my-registry https://example.com/registry.nuon }
+@example "Add a new registry" { nupm+ registry add my-registry https://example.com/registry.nuon }
 export def --env add [
     name: string,       # Name of the registry
     url: string,        # URL or path to the registry
     --save,             # Whether to commit the change to the registry index
 ] {
     if ($name in $env.NUPM_REGISTRIES) {
-        throw-error $"Registry '($name)' already exists. Use 'nupm registry update' to modify it."
+        throw-error $"Registry '($name)' already exists. Use 'nupm+ registry update' to modify it."
     }
     $env.NUPM_REGISTRIES = $env.NUPM_REGISTRIES | insert $name $url
 
@@ -112,7 +111,7 @@ export def --env add [
 }
 
 # Remove a registry
-@example "Remove a registry" { nupm registry remove my-registry }
+@example "Remove a registry" { nupm+ registry remove my-registry }
 export def --env remove [
     name: string        # Name of the registry to remove
     --save,             # Whether to commit the change to the registry index
@@ -127,7 +126,7 @@ export def --env remove [
 }
 
 # Update a given registry url
-@example "Update registry URL" { nupm registry set-url my-registry https://new-url.com/registry.nuon }
+@example "Update registry URL" { nupm+ registry set-url my-registry https://new-url.com/registry.nuon }
 export def --env set-url [
     name: string, # Name of the registry to update
     url: string,  # Registry target URL
@@ -145,7 +144,7 @@ export def --env set-url [
 # https://www.nushell.sh/book/configuration.html#macos-keeping-usr-bin-open-as-open
 alias nu-rename = rename
 # Rename a registry
-@example "Rename a registry" { nupm registry rename my-registry our-registry }
+@example "Rename a registry" { nupm+ registry rename my-registry our-registry }
 export def --env rename [
     name: string,     # Name of the registry to update
     new_name: string, # New registry name
@@ -158,6 +157,28 @@ export def --env rename [
     }
 
     print (success-msg $"Registry '($name)' renamed successfully" $env.NUPM_INDEX_PATH $save)
+}
+
+# Drop cached registry indexes and git clones so the next lookup re-fetches.
+#
+# nupm+ caches a remote registry's index and package files, and git clones per
+# revision, without any expiry — a pushed registry or package update is
+# invisible until the cache is cleared.
+@example "Refresh one registry's cache" { nupm+ registry refresh ramda }
+@example "Refresh every registry cache" { nupm+ registry refresh }
+export def refresh [
+    name?: string@registry-names  # Registry to refresh (all registries when omitted)
+] {
+    use utils/dirs.nu cache-dir
+
+    let cache = cache-dir
+    let registries = match $name {
+        null => ($cache | path join registry)
+        $n => ($cache | path join registry $n)
+    }
+    rm --recursive --force $registries ($cache | path join git)
+
+    print $"Refreshed the nupm+ cache for ($name | default 'all registries')"
 }
 
 def init-index [] {
@@ -177,15 +198,14 @@ def init-index [] {
 }
 
 
-# Initialize a new nupm registry or a registry index if the `--index` flag is
+# Initialize a new nupm+ registry or a registry index if the `--index` flag is
 # passed in
-@example "Initialize registry index" { nupm registry init --index }
+@example "Initialize registry index" { nupm+ registry init --index }
 export def init [--index] {
     if $index {
         init-index
         return
     }
     # TODO initialize registry index here
-    throw-error UNIMPLEMENTED "`nupm registry --index` is not implemented."
+    throw-error UNIMPLEMENTED "`nupm+ registry --index` is not implemented."
 }
-
