@@ -58,7 +58,7 @@ export def main [
   nupm-home-prompt --no-confirm=false
 
   let subcommands = help modules | where name == 'nupm+' | get --optional submodules.0.name
-  print $"(ansi green)Usage(ansi reset): nupm+ \(($subcommands | str join '|'))"
+  print $"(ansi green)Usage(ansi reset): nupm+ \((($subcommands | default []) | str join '|'))"
 
   print 'enjoy nupm!'
 }
