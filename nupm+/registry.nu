@@ -1,4 +1,5 @@
-# Registry management for nupm+ use utils/dirs.nu [nupm-home-prompt REGISTRY_FILENAME]
+# Registry management fornupm+
+use utils/dirs.nu [nupm-home-prompt REGISTRY_FILENAME]
 use utils/log.nu [throw-error append-help UNIMPLEMENTED]
 use utils/registry.nu registry-cache
 
@@ -208,4 +209,3 @@ export def init [--index] {
     # TODO initialize registry index here
     throw-error UNIMPLEMENTED "`nupm+ registry --index` is not implemented."
 }
-
