@@ -33,6 +33,12 @@ def "assert installed" [path_tokens: list<string>] {
     assert ($path_tokens | prepend $env.NUPM_HOME | path join | path exists)
 }
 
+def check-package-path [...segments: string]: path -> bool {
+    let actual = $in | path expand
+    let expect = $segments | prepend [$DIRNAME packages] | path join
+    assert ($expect == $actual)
+}
+
 def check-file-content [content: string] {
     let file_str = open ($env.NUPM_HOME | path join scripts spam_script.nu)
     assert ($file_str | str contains $content)
@@ -152,10 +158,8 @@ export def search-registry [] {
 export def nupm-status-module [] {
     with-test-env {
         let files = nupm+ status tests/packages/spam_module | get files
-        assert ($files | first | str ends-with (
-            [tests packages spam_module spam_module mod.nu] | path join))
-        assert ($files.1.0 ends-with (
-            [tests packages spam_module script.nu] | path join))
+        $files.0 | check-package-path spam_module spam_module mod.nu
+        $files.1.0 | check-package-path spam_module script.nu
     }
 }
 
