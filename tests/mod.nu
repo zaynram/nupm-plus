@@ -68,10 +68,14 @@ export def install-custom [] {
 
 
 export def install-custom-git [] {
+    # Switched to a custom module of mine to test git installation
+    # without having to pass branch arguments for the fork (the original
+    # test installed nupm/nupm+ as the git module).
     with-test-env {
-        nupm+ install --git https://github.com/zaynram/nupm-plus.git
+        nupm+ install --git https://github.com/zaynram/nushell-nightly-toolkit.git
 
-        assert installed [modules nupm+]
+        assert installed [modules nightly-toolkit]
+        assert installed [modules nightly-toolkit mod.nu]
     }
 }
 
