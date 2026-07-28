@@ -7,16 +7,16 @@ use utils/version.nu filter-by-version
 # Search for packages by name across configured registries. Returns a table
 # with package information including name, version, registry, and metadata.
 @example "Search for packages containing 'logger'" {
-  nupm search logger
+  nupm+ search logger
 }
 @example "Search for exact package name" {
-  nupm search my-package --exact-match
+  nupm+ search my-package --exact-match
 }
 @example "Search in specific registry" {
-  nupm search logger --registry my-registry
+  nupm+ search logger --registry my-registry
 }
 @example "Search for specific version" {
-  nupm search my-package --pkg-version 1.2.0
+  nupm+ search my-package --pkg-version 1.2.0
 }
 export def main [
   package # Name, path, or link to the package

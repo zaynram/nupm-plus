@@ -293,7 +293,7 @@ def git-clone [
   return $directory
 }
 
-# Install a nupm package
+# Install a nupm+ package
 #
 # Installation consists of two parts:
 # 1. Fetching the package (if the package is online)

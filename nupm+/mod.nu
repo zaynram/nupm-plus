@@ -20,7 +20,7 @@ export use test.nu
 
 export-env {
   # Ensure that $env.NUPM_HOME is always set when running nupm. Any missing
-  # $env.NUPM_HOME during nupm execution is a bug.
+  # $env.NUPM_HOME during nupm+ execution is a bug.
   # load-env applies its record only after every field has evaluated, so the
   # registries field cannot read the index path through $env — resolve it once.
   let index_path: path = $env.NUPM_INDEX_PATH? | default $DEFAULT_NUPM_INDEX_PATH
@@ -40,17 +40,17 @@ export-env {
 
 # Nushell Package Manager
 #
-# nupm is a package manager for Nushell that allows you to install, manage, and publish
+# nupm+ is a package manager for Nushell that allows you to install, manage, and publish
 # Nushell packages including modules, scripts, and custom packages.
 #
 # Configuration:
 #   Set `NUPM_HOME` environment variable to change installation directory
 #   Set `NUPM_REGISTRIES` to configure package registries
-@example "Install a package from a local directory" { nupm install my-package --path }
-@example "Publish a package" { nupm publish my-registry.nuon --local --save }
-@example "Search for specific version" { nupm search my-package --pkg-version 1.2.0 }
-@example "Check status of specific package directory" { nupm status ./my-package }
-@example "Run tests" { nupm test }
+@example "Install a package from a local directory" { nupm+ install my-package --path }
+@example "Publish a package" { nupm+ publish my-registry.nuon --local --save }
+@example "Search for specific version" { nupm+ search my-package --pkg-version 1.2.0 }
+@example "Check status of specific package directory" { nupm+ status ./my-package }
+@example "Run tests" { nupm+ test }
 export def main [
   # topiary: disable
   _subcommand # nu-lint-ignore: add_type_hints_arguments

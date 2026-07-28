@@ -1,15 +1,13 @@
-# Directories and related utilities used in nupm
-
-# Default installation path for nupm packages
+# Directories and related utilities used in nupm+ # Default installation path for nupm+ packages
 export const DEFAULT_NUPM_HOME = ($nu.default-config-dir | path join nupm)
 
 # Default path for installation cache
 export const DEFAULT_NUPM_CACHE = (
   $nu.default-config-dir
-  | path join nupm cache
+  | path join nupm+ cache
 )
 
-# Default temporary path for various nupm purposes
+# Default temporary path for various nupm+ purposes
 export const DEFAULT_NUPM_TEMP = ($nu.temp-dir | path join nupm)
 
 # registry index filename
@@ -24,17 +22,15 @@ export const DEFAULT_NUPM_REGISTRIES = {
   nupm: `https://raw.githubusercontent.com/nushell/nupm/main/registry/registry.nuon`
 }
 
-# default path for the nupm registry index
-export const DEFAULT_NUPM_INDEX_PATH = ($nu.default-config-dir | path join nupm $REGISTRY_IDX_FILENAME)
+# default path for the nupm+ registry index
+export const DEFAULT_NUPM_INDEX_PATH = ($nu.default-config-dir | path join nupm+ $REGISTRY_IDX_FILENAME)
 
 # pretty prints an environmental variable name
 def env-colour [env_name: string]: nothing -> string {
   $"(ansi purple)$env.($env_name)(ansi reset)"
 }
 
-# Directories and related utilities used in nupm
-
-# Prompt to create $env.NUPM_HOME if it does not exist and some sanity checks.
+# Directories and related utilities used in nupm+ # Prompt to create $env.NUPM_HOME if it does not exist and some sanity checks.
 #
 # returns true if the root directory exists or has been created, false otherwise
 export def nupm-home-prompt [--no-confirm]: nothing -> bool {

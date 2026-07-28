@@ -8,13 +8,13 @@ use utils/package.nu [open-package-file list-package-files]
 # in the package installation. Useful for inspecting package contents
 # before installation or for debugging package structure.
 @example "Check status of current directory package" {
-  nupm status
+  nupm+ status
 }
 @example "Check status of specific package directory" {
-  nupm status ./my-package
+  nupm+ status ./my-package
 }
 @example "View package files and metadata" {
-  nupm status ./my-package | get files
+  nupm+ status ./my-package | get files
 }
 export def main [
     path?: path  # path to the package
