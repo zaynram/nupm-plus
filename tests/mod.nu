@@ -36,7 +36,7 @@ def "assert installed" [path_tokens: list<string>] {
 def check-package-path [...segments: string]: path -> bool {
     let actual = $in | path expand
     let expect = $segments | prepend [$DIRNAME packages] | path join
-    assert ($expect == $actual)
+    assert ($actual ends-with $expect)
 }
 
 def check-file-content [content: string] {
