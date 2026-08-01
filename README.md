@@ -1,8 +1,4 @@
 ---
-title: "nupm+ - Nushell package manager"
-=======
-title: "nupm - Nushell package manager"
-forked-by: "Zayn Ramdass (zaynram)"
 title: "nupm+ — `nu`'s package manager"
 purpose: This fork exists since compatibility with my existing `nupm` registry; the version of `nupm` at the time of forking had a few bugs related to installation, types, and breaking changes introduced in newer `nu` versions.
 compatibility: { nu: { version: '>=0.114.0', tested-with: '0.114.2-nightly.19' } }
@@ -26,22 +22,6 @@ changelog: https://github.com/zaynram/nupm-plus/compare/9a28419bf91aadc58999d83e
 
 ## Installation [↑](#table-of-contents)
 
-`nupm+` is a module. Download the repository and treat the [`nupm+`](https://github.com/zaynram/nupm-plus/tree/main/nupm+) directory as a module. For example:
-* `use nupm+/`
-* `overlay use nupm+/ --prefix`
-=======
-`nupm` is a module. Download the repository and treat the [`nupm`](https://github.com/nushell/nupm/tree/main/nupm`) directory as a module. For example:
-* `use nupm/`
-* `overlay use nupm/ --prefix`
-
-Both of the above commands will make `nupm+` and all its subcommands available in your current scope. `overlay use` will allow you to `overlay hide` the `nupm+` overlay when you don't need it.
-
-> **Note**
-> `nupm+` is able to install itself: from outside the root of your local copy of `nupm+`, run
-> ```nushell
-> use nupm-plus/nupm+
-> nupm+ install nupm-plus --force --path
-> ```
 `nupm+` is a module, and must be manually installed (once):
 
 Clone the repository and navigate to it:
@@ -101,8 +81,6 @@ For bare packages from a repository:
 # install
 git clone https://github.com/nushell/foo.git
 nupm+ install foo --path
-nupm install foo --path
-nupm+ install foo --path
 
 # update
 git -C foo/ pull
@@ -111,9 +89,6 @@ nupm+ install foo --path
 
 or
 
-```nushell
-nupm+ install https://github.com/nushell/foo.git --git
-nupm install https://github.com/nushell/foo.git --git
 ```nu
 # install (run with `--force` to update)
 nupm+ install --git "https://github.com/example/foo.git"
@@ -121,14 +96,6 @@ nupm+ install --git "https://github.com/example/foo.git"
 
 For packages from a configured registry:
 
-Assuming the repository is already cloned, you can update the module package with the following:
-
-```nushell
-do { cd foo; git pull }
-nupm+ install foo --force --path
-```
-This usage will likely change once a dedicated `nupm+ update` command is added.
-This usage will likely change once a dedicated `nupm update` command is added.
 ```nu
 # install (run with `--force` to update)
 nupm+ install --registry=example foo
@@ -192,25 +159,6 @@ The original `nupm` test framework allows package maintainers to define tests fo
 - create a `tests/` directory next to the `pkg/` directory
 - `tests/` is a regular Nushell directory module, put a `mod.nu` there and any structure you want
 - import definitions from the package with something like
-```nushell
-use ../package/foo/bar.nu [baz, brr]
-```
-- all the commands defined in the `tests/` module and `export`ed will run as tests
-- from the root of the repo, run `nupm+ test`
-
-### run the tests of Nupm [[toc](#table-of-content)]
-from the root of Nupm, run
-```nushell
-nupm+ test
-```
-you should see something like
-```
-Testing package /home/amtoine/documents/repos/github.com/amtoine/nupm
-tests install-module ... SUCCESS
-tests install-script ... SUCCESS
-tests install-custom ... SUCCESS
-Ran 3 tests. 3 succeeded, 0 failed.
-nupm test
 
 #### Example
 
