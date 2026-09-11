@@ -45,7 +45,7 @@ export def search-package [
     let regs = $registries
         | items {|name, url_or_path|
             # Open registry (online or offline)
-            let registry = if ($url_or_path | path type) == file {
+            let registry = if (try { $url_or_path | path type }) == file {
                 {
                     reg: (open $url_or_path)
                     path: $url_or_path
