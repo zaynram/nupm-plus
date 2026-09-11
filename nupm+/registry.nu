@@ -102,6 +102,10 @@ export def --env add [
     }
     $env.NUPM_REGISTRIES = $env.NUPM_REGISTRIES | insert $name $url
 
+    if $env not-has NUPM_INDEX_PATH {
+        $env.NUPM_INDEX_PATH = $env.NUPM_HOME | path join registry-index.nuon
+    }
+
     if $save {
       $env.NUPM_REGISTRIES | save --force $env.NUPM_INDEX_PATH
     }
