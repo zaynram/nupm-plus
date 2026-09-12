@@ -59,10 +59,9 @@ export module url {
         url parse
         | update path {|url|
             # skip the first '/' and replace last element with the new name
-            let parts = $url.path | path split | skip 1 | drop 1
+            let parts = $url.path | path split | skip until { $in != '/' } | drop 1
             $parts | append $new_name | str join '/'
         }
         | url join
     }
 }
-
